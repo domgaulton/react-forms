@@ -4,7 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Uses HTML5 Validation
 
 ## To Do
-* Move functions into Input.js
+* Move functions into Input.js (DONE)
+* Submit button
 
 ## Available Scripts
 
