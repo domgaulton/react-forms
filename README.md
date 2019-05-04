@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## React Forms
+* Uses HTML5 Validation
+
+## To Do
+* Move functions into Input.js
+
 ## Available Scripts
 
 In the project directory, you can run:
