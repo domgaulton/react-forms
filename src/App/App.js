@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import Input from './Components/Input';
-// import { handleSubmit } from './Components/Form.js';
+import './app.css';
+// import { handleFormChange, getValidity } from './Components/Form.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      submitBtnDisabled: true,
+    };
+  }
 
   handleSubmit(event){
     event.preventDefault();
@@ -15,21 +22,37 @@ class App extends Component {
     }
   }
 
-  // anotherFunction(event){
-  //   event.preventDefault();
-  //   console.log(handleSubmit())
-  // }
+  handleFormChange(event){
+    event.preventDefault();
+    let fields = event.currentTarget.querySelectorAll('.input-field input[required]')
+
+    for(var input of fields.values()) { 
+      let validity = input.validity.valid;
+      if (validity === false) {
+        this.setState({ submitBtnDisabled: true})
+        return
+      } else {
+        this.setState({ submitBtnDisabled : false})
+      }
+    }
+  }
 
   render(){
+    // console.log(getValidity())
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form 
+        onSubmit={this.handleSubmit} 
+        onChange={(event) => this.handleFormChange(event)}
+        // onChange={handleFormChange}
+      >
         <Input 
           id="firstName"
           type="text" 
           label="First Name"
           placeholder="First Name"
           pattern="^[a-zA-Z]\w{3,14}$"
-          value=""
+          feedback="Must be a first name"
+          required={true}
         />
         <Input 
           id="lastName"
@@ -37,19 +60,23 @@ class App extends Component {
           label="Last Name"
           placeholder="Last Name"
           pattern="^[a-zA-Z]\w{3,14}$"
-          value=""
+          feedback="LAST NAME!"
         />
         <Input 
           id="password"
           type="password" 
           label="Password"
-          placeholder="Password Name"
+          placeholder="Password"
           pattern="^[a-zA-Z]\w{3,14}$"
-          value=""
+          feedback="PASSWORD wrong"
+          required={true}
         />
         <input 
           id="submit"
-          type="submit" 
+          type="submit"
+          // disabled={true}
+          disabled={this.state.submitBtnDisabled}
+          value={this.state.submitBtnDisabled}
         />
       </form>
     )

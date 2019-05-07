@@ -1,0 +1,9 @@
+#submit {
+	background-color: green;
+}
+
+#submit:disabled,
+#submit[disabled] {
+	font-weight: bold;
+	background-color: red;
+}

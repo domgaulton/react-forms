@@ -29,8 +29,3 @@ input:invalid {
 .valid {
 	background-color: green;
 }
-
-#submit {
-	font-size: 3em;
-	cursor: pointer;
-}

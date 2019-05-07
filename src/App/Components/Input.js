@@ -11,11 +11,13 @@ class Input extends Component {
   handleChange = event => {
     let { id } = event.target;
     let valid = event.target.checkValidity();
+    // If the input is empty set dyanmic state as false
     if (event.target.value.length === 0){
       this.updateState(id, false)
     } else {
       this.updateState(id, valid)
     }
+    // if input is ever valid set legacy state for future reference
     if (valid) this.updateStateLegacy(id);
   }
 
@@ -29,26 +31,25 @@ class Input extends Component {
     this.setState({ [stateName]: true });
   } 
 
-  testFunction(id){
+  wrapperClass(id){
     let stateName = `${id}Valid`;
     let stateNameLegacy = `${id}ValidLegacy`;
-    
-    let inputWrapperClass = 'input-field';
+
     if (this.state[stateNameLegacy] === true) {
       if (this.state[stateName] === true) {
-        return `${inputWrapperClass} valid`
+        return `valid`
       } else {
-        return `${inputWrapperClass} invalid`
+        return `invalid`
       }
     }
-    return `${inputWrapperClass}`
+    return '';
   }
 
   render(){
     const inputWrapperClass = 'input-field';
 
     return (
-      <div className={`${inputWrapperClass} ${this.testFunction(this.props.id)}`}>
+      <div className={`${inputWrapperClass} ${this.wrapperClass(this.props.id)}`}>
         <label 
           htmlFor={this.props.id}
         >
@@ -60,7 +61,9 @@ class Input extends Component {
           placeholder={this.props.placeholder}
           onChange={this.handleChange}
           pattern={this.props.pattern}
+          required={this.props.required}
         />
+        {(this.wrapperClass(this.props.id) === 'invalid') ? <span className="input-feedback">{this.props.feedback}</span> : null}
       </div>
     )
   }
