@@ -6,6 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## To Do
 * Move functions into Input.js (DONE)
 * Submit button
+* setCustomValidity() - https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Constraint_API%27s_element.setCustomValidity()
 
 ## Available Scripts
 
