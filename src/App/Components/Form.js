@@ -1,27 +1,3 @@
-// import React, { Component } from 'react';
-
-// class Form extends Component {
-//   handSubmit = event => {
-//     event.preventDefault();
-//     let fields = event.currentTarget.querySelectorAll('.input-field input')
-//     console.log(fields);
-
-//     for(var input of fields.values()) { 
-//       let { id, value } = input;
-//       console.table(id, value); 
-//     }
-//   }
-//   render(){
-//     return(
-//       <form onSubmit={this.handleSubmit}>
-
-//       </form>
-//     )
-//   }
-// }
-
-// export default Form;
-
 export const handleSubmit = event => {
   event.preventDefault();
   let fields = event.currentTarget.querySelectorAll('.input-field input')
@@ -35,3 +11,33 @@ export const handleSubmit = event => {
   }
   return fieldInputs;
 }
+
+export const handleFormChange = event => {
+  event.preventDefault();
+  let fields = event.currentTarget.querySelectorAll('.input-field input[required]')
+
+  for(var input of fields.values()) { 
+    let validity = input.validity.valid;
+    let submitBtnDisabled = true;
+    if (validity === false) {
+    } else {
+      submitBtnDisabled = false;
+      return false;
+    }
+    console.log('submit', submitBtnDisabled);
+
+  }
+}
+
+// export const getValidity = () => {
+//   let fields = document.querySelectorAll('.input-field input[required]')
+
+//   for(var input of fields.values()) { 
+//     let validity = input.validity.valid;
+//     if (validity === false) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }
+// }

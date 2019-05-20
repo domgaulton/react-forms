@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import Input, { createKeyValueState } from './Components/Input';
-// import { handleSubmit } from './Components/Form.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    };    
-  }
-
-  componentDidUpdate(prevState, prevProps) {
-    console.log(prevState, prevProps)
+      submitBtnDisabled: true,
+    };
   }
 
   handleSubmit(event){
@@ -28,9 +24,27 @@ class App extends Component {
     this.setState({[field]: value });
   }
 
+  handleFormChange(event){
+    event.preventDefault();
+    let fields = event.currentTarget.querySelectorAll('.input-field input[required]')
+
+    for(var input of fields.values()) { 
+      let validity = input.validity.valid;
+      if (validity === false) {
+        this.setState({ submitBtnDisabled: true})
+        return
+      } else {
+        this.setState({ submitBtnDisabled : false})
+      }
+    }
+  }
+
   render(){
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form 
+        onSubmit={this.handleSubmit} 
+        onChange={(event) => this.handleFormChange(event)}
+      >
         <Input 
           id="firstName"
           type="text" 
@@ -39,6 +53,8 @@ class App extends Component {
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
           sendKeyValueState={this.createKeyValueState}
+          feedback="Must be a first name"
+          required={true}
         />
         <Input 
           id="lastName"
@@ -48,19 +64,25 @@ class App extends Component {
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
           sendKeyValueState={createKeyValueState}
+          feedback="LAST NAME!"
         />
         <Input 
           id="password"
           type="password" 
           label="Password"
-          placeholder="Password Name"
+          placeholder="Password"
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
           sendKeyValueState={createKeyValueState}
+          feedback="PASSWORD wrong"
+          required={true}
         />
         <input 
           id="submit"
           type="submit"
+          // disabled={true}
+          disabled={this.state.submitBtnDisabled}
+          value={this.state.submitBtnDisabled}
         />
       </form>
     )

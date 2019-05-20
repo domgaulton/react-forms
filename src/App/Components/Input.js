@@ -15,11 +15,13 @@ class Input extends Component {
 
     let { id } = event.target;
     let valid = event.target.checkValidity();
+    // If the input is empty set dyanmic state as false
     if (event.target.value.length === 0){
       this.updateState(id, false)
     } else {
       this.updateState(id, valid)
     }
+    // if input is ever valid set legacy state for future reference
     if (valid) this.updateStateLegacy(id);
   }
 
@@ -63,7 +65,9 @@ class Input extends Component {
           placeholder={this.props.placeholder}
           onChange={this.handleChange}
           pattern={this.props.pattern}
+          required={this.props.required}
         />
+        {(this.validtyClass(this.props.id) === 'invalid') ? <span className="input-feedback">{this.props.feedback}</span> : null}
       </div>
     )
   }
