@@ -9,6 +9,10 @@ class Input extends Component {
   }
 
   handleChange = event => {
+    
+    // this.updateState(id.target.id, event.target.value)
+    this.props.sendKeyValueState(event.target.id, event.target.value);
+
     let { id } = event.target;
     let valid = event.target.checkValidity();
     if (event.target.value.length === 0){
@@ -29,26 +33,25 @@ class Input extends Component {
     this.setState({ [stateName]: true });
   } 
 
-  testFunction(id){
+  validtyClass(id){
     let stateName = `${id}Valid`;
     let stateNameLegacy = `${id}ValidLegacy`;
-    
-    let inputWrapperClass = 'input-field';
+
     if (this.state[stateNameLegacy] === true) {
       if (this.state[stateName] === true) {
-        return `${inputWrapperClass} valid`
+        return "valid"
       } else {
-        return `${inputWrapperClass} invalid`
+        return "invalid"
       }
     }
-    return `${inputWrapperClass}`
+    return;
   }
 
   render(){
     const inputWrapperClass = 'input-field';
 
     return (
-      <div className={`${inputWrapperClass} ${this.testFunction(this.props.id)}`}>
+      <div className={`${inputWrapperClass} ${this.validtyClass(this.props.id)}`}>
         <label 
           htmlFor={this.props.id}
         >
@@ -67,3 +70,9 @@ class Input extends Component {
 }
 
 export default Input;
+
+export const createKeyValueState = (field, value) => {
+  console.log(field, value);
+  // let stateName = `${field}Field`;
+  // this.props.setState({[stateName]: `${value}` });
+}

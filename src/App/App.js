@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import Input from './Components/Input';
+import Input, { createKeyValueState } from './Components/Input';
 // import { handleSubmit } from './Components/Form.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };    
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    console.log(prevState, prevProps)
+  }
 
   handleSubmit(event){
     event.preventDefault();
@@ -15,10 +24,9 @@ class App extends Component {
     }
   }
 
-  // anotherFunction(event){
-  //   event.preventDefault();
-  //   console.log(handleSubmit())
-  // }
+  createKeyValueState = (field, value) => {
+    this.setState({[field]: value });
+  }
 
   render(){
     return (
@@ -30,6 +38,7 @@ class App extends Component {
           placeholder="First Name"
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
+          sendKeyValueState={this.createKeyValueState}
         />
         <Input 
           id="lastName"
@@ -38,6 +47,7 @@ class App extends Component {
           placeholder="Last Name"
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
+          sendKeyValueState={createKeyValueState}
         />
         <Input 
           id="password"
@@ -46,16 +56,15 @@ class App extends Component {
           placeholder="Password Name"
           pattern="^[a-zA-Z]\w{3,14}$"
           value=""
+          sendKeyValueState={createKeyValueState}
         />
         <input 
           id="submit"
-          type="submit" 
+          type="submit"
         />
       </form>
     )
   }
 }
-
-  
 
 export default App;
